@@ -1,19 +1,27 @@
 "use client";
 
+import { ReactNode } from "react";
 import { useAuth } from "../context/AuthContext";
 import HeaderBeforeLogin from "./HeaderBeforeLogin";
 import HeaderAfterLogin from "./HeaderAfterLogin";
+import Footer from "./Footer";
 
-export default function ClientWrapper({ children }) {
+interface WrapperProps {
+  children: ReactNode;
+}
+
+export default function ClientWrapper({ children }: WrapperProps) {
   const { user, loading } = useAuth();
 
-  // Prevent header flicker on refresh
   if (loading) return null;
 
   return (
     <>
       {user ? <HeaderAfterLogin /> : <HeaderBeforeLogin />}
+
       {children}
+
+      <Footer />
     </>
   );
 }
