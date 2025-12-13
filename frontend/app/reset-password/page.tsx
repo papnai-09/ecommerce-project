@@ -1,87 +1,99 @@
 "use client";
 
-import AuthCard from "../components/AuthCard";
+import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { Lock } from "lucide-react";
 
-export default function ResetPassword() {
-  const handleReset = (e: any) => {
+export default function ResetPasswordPage() {
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    alert("Password reset successful!"); // temp
-  };
+    setError(null);
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters.");
+      return;
+    }
+
+    if (password !== confirm) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    // TODO: API call to save new password
+    console.log("Password reset:", password);
+  }
 
   return (
-    <AuthCard>
+    <div className="h-screen w-full flex items-center justify-center bg-[#f5f6fa] px-4 py-6 overflow-hidden">
 
-      {/* LOGO CENTER SMALLER */}
-      <div className="flex justify-center mb-6 mt-2">
-        <Image
-          src="/logo.png"
-          alt="App Logo"
-          width={100}
-          height={100}
-          className="object-contain"
-        />
-      </div>
+      {/* MAIN CARD */}
+      <div className="bg-[#1c1b29] text-white rounded-2xl shadow-xl w-full max-w-3xl h-[92vh] flex overflow-hidden">
 
-      {/* TITLE */}
-      <div className="flex flex-col items-center mb-6">
-        <h3 className="text-2xl font-bold tracking-tight text-gray-900 font-sans">
-          Reset Password
-        </h3>
-        <p className="text-gray-600 text-xs mt-1 font-medium text-center">
-          Create a new password to access your account
-        </p>
-      </div>
-
-      {/* FORM */}
-      <form className="space-y-4" onSubmit={handleReset}>
-
-        {/* NEW PASSWORD */}
-        <div className="flex items-center border-b border-gray-400 pb-1.5 focus-within:border-[#38bdf8] transition">
-          <Lock size={18} className="text-gray-500 mr-2" />
-          <input
-            type="password"
-            placeholder="New Password"
-            className="flex-1 bg-transparent text-sm text-gray-800 placeholder-gray-400 outline-none py-1"
+        {/* LEFT IMAGE PANEL */}
+        <div className="hidden md:flex w-1/3 relative">
+          <img
+            src="/reset-page-img.png"
+            alt="Reset visual"
+            className="absolute inset-0 w-full h-full object-cover"
           />
+          <div className="absolute inset-0 bg-black/10" />
         </div>
 
-        {/* CONFIRM PASSWORD */}
-        <div className="flex items-center border-b border-gray-400 pb-1.5 focus-within:border-[#38bdf8] transition">
-          <Lock size={18} className="text-gray-500 mr-2" />
-          <input
-            type="password"
-            placeholder="Confirm New Password"
-            className="flex-1 bg-transparent text-sm text-gray-800 placeholder-gray-400 outline-none py-1"
-          />
-        </div>
+        {/* RIGHT FORM PANEL */}
+        <div className="w-full md:w-2/3 flex flex-col items-center justify-center p-6">
 
-        {/* BUTTON */}
-        <div className="flex items-center justify-center mt-2">
-          <button
-            type="submit"
-            className="
-              bg-gradient-to-r from-[#38bdf8] to-[#0ea5e9]
-              text-white font-semibold text-sm tracking-wide
-              px-6 py-2 rounded-full
-              shadow-md hover:shadow-lg hover:scale-105 
-              transition-all duration-300
-            "
-          >
-            Reset Password
-          </button>
-        </div>
-      </form>
+          {/* LOGO */}
+          <img src="/logo.png" className="w-24 mb-5" />
 
-      {/* LOGIN */}
-      <p className="text-center text-gray-700 text-xs mt-4 font-medium">
-        Go back to{" "}
-        <Link href="/login" className="text-[#38bdf8] font-semibold hover:underline">
-          Login
-        </Link>
-      </p>
-    </AuthCard>
+          {/* CONTENT */}
+          <div className="w-full max-w-xs">
+
+            <h1 className="text-2xl font-semibold text-center mb-2">Reset Password</h1>
+
+            <p className="text-gray-300 text-xs text-center mb-4">
+              Create a new password for your account.
+            </p>
+
+            <form onSubmit={handleSubmit} className="space-y-3">
+
+              <input
+                type="password"
+                placeholder="New Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full bg-gray-100 text-black p-2.5 rounded-md text-sm outline-none"
+              />
+
+              <input
+                type="password"
+                placeholder="Confirm New Password"
+                value={confirm}
+                onChange={(e) => setConfirm(e.target.value)}
+                className="w-full bg-gray-100 text-black p-2.5 rounded-md text-sm outline-none"
+              />
+
+              {error && <div className="text-xs text-yellow-300">{error}</div>}
+
+              <button
+                type="submit"
+                className="w-full bg-purple-600 hover:bg-purple-700 p-2.5 rounded-md text-white text-sm font-medium"
+              >
+                Save New Password
+              </button>
+            </form>
+
+            <div className="text-center mt-4">
+              <Link href="/login" className="text-purple-400 text-sm">
+                Back to Login
+              </Link>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

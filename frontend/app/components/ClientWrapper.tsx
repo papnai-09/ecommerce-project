@@ -1,8 +1,9 @@
 "use client";
 
 import { useAuth } from "../context/AuthContext";
-import HeaderBeforeLogin from "./HeaderBeforeLogin";
-import HeaderAfterLogin from "./HeaderAfterLogin";
+import HeaderAuth from "./HeaderAuth";
+import HeaderGuest from "./HeaderGuest";
+import HeaderCart from "./HeaderCart";
 import Footer from "./Footer";
 import { usePathname } from "next/navigation";
 
@@ -12,15 +13,24 @@ export default function ClientWrapper({ children }) {
 
   if (loading) return null;
 
-  // pages where header & footer should be hidden
   const hideLayout =
     pathname === "/login" ||
     pathname === "/signup" ||
-    pathname === "/forgot-password";
+    pathname === "/forgot-password" ||
+    pathname === "/verify-otp" ||
+    pathname === "/reset-password";
+
+  const isCartPage = pathname === "/cart";
 
   return (
     <>
-      {!hideLayout && (user ? <HeaderAfterLogin /> : <HeaderBeforeLogin />)}
+      {!hideLayout && (
+        isCartPage ? (
+          <HeaderCart />
+        ) : (
+          user ? <HeaderAuth /> : <HeaderGuest />
+        )
+      )}
 
       {children}
 
