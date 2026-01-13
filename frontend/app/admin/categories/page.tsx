@@ -5,7 +5,7 @@ export default function CategoriesPage() {
   const [cats, setCats] = useState(["Books", "Merch"]);
   const [showAdd, setShowAdd] = useState(false);
 
-  function addCat(e) {
+  function addCat(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const f = new FormData(e.target);
     const name = f.get("name");
