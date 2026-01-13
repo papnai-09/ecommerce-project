@@ -2,9 +2,25 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 
-const AuthContext = createContext(null);
+interface AuthContextType {
+  user: { email: string; role: string } | null;
+  token: string | null;
+  loading: boolean;
+  login: (token: string) => void;
+  logout: () => void;
+}
 
-function decodeJwt(token) {
+const AuthContext = createContext<AuthContextType | null>(null);
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+};
+
+function decodeJwt(token: string) {
   try {
     const payload = token.split('.')[1];
     const decoded = JSON.parse(atob(payload));
@@ -14,10 +30,10 @@ function decodeJwt(token) {
   }
 }
 
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
-  const [loading, setLoading] = useState(true);
+export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = useState<{ email: string; role: string } | null>(null);
+  const [token, setToken] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const t = localStorage.getItem('token');
@@ -31,7 +47,7 @@ export function AuthProvider({ children }) {
     setLoading(false);
   }, []);
 
-  const login = (t) => {
+  const login = (t: string) => {
     const payload = decodeJwt(t);
     if (payload) {
       setUser({ email: payload.sub, role: payload.role });
@@ -52,5 +68,3 @@ export function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
-
-export const useAuth = () => useContext(AuthContext);

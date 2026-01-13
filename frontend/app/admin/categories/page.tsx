@@ -7,7 +7,7 @@ export default function CategoriesPage() {
 
   function addCat(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const f = new FormData(e.target);
+    const f = new FormData(e.target as HTMLFormElement);
     const name = f.get("name");
     if (name) setCats((s) => [String(name), ...s]);
     setShowAdd(false);

@@ -44,7 +44,7 @@ export default function Sidebar() {
       <nav className={`flex flex-col space-y-2 ${collapsed ? 'sidebar-collapsed' : ''}`}>
         {items.map((it) => {
           const active = pathname === it.href;
-          const Icon = ICONS[it.label] ?? Home;
+          const Icon = ICONS[it.label as keyof typeof ICONS] ?? Home;
           return (
             <Link
               key={it.href}
