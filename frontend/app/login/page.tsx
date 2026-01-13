@@ -29,8 +29,9 @@ export default function LoginPage() {
       const payload = JSON.parse(atob(data.access_token.split('.')[1]));
       if (payload.role === 'admin') router.replace('/admin');
       else router.replace('/');
-    } catch (err) {
-      alert(err.message || 'Login failed');
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      alert(message || 'Login failed');
     } finally {
       setLoading(false);
     }
