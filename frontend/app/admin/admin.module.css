@@ -1,0 +1,49 @@
+:root {}
+
+.root {
+  /* Override theme variables for admin for better contrast */
+  --background: #f6f8fb;
+  --foreground: #0f172a;
+
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+
+  --sidebar: #0b1220;
+  --sidebar-foreground: #e6eef9;
+  --sidebar-primary: #0b74ff;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-border: #10203a;
+
+  --primary: #0b74ff;
+  --primary-foreground: #ffffff;
+  --destructive: #ef4444;
+
+  background-color: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Increase sidebar hit area and add subtle separators */
+.root .sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+}
+
+.root .sidebar-link:hover {
+  background-color: rgba(11,116,255,0.08);
+  color: var(--sidebar-primary-foreground);
+}
+
+.root .sidebar-collapsed .sidebar-link {
+  justify-content: center;
+  padding: 10px 6px;
+}
+
+/* Tooltip styling fallback */
+.root .tooltip {
+  pointer-events: none;
+}

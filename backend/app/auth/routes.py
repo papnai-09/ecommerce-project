@@ -69,7 +69,7 @@ def login(data: LoginSchema, db: Session = Depends(get_db)):
     if not user.is_verified:
         raise HTTPException(status_code=403, detail="Email not verified")
 
-    token = create_access_token({"sub": user.email})
+    token = create_access_token({"sub": user.email, "role": user.role})
     return {"access_token": token, "token_type": "bearer"}
 
 

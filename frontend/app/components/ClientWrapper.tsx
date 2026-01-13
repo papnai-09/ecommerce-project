@@ -12,7 +12,7 @@ export default function ClientWrapper({ children }) {
   const pathname = usePathname();
   if (loading) return null;
 
-  const hideLayout = ["/login", "/signup", "/forgot-password", "/verify-otp", "/reset-password"].includes(pathname);
+  const hideLayout = ["/login", "/signup", "/forgot-password", "/verify-otp", "/reset-password"].includes(pathname) || pathname?.startsWith("/admin");
   const isCartPage = pathname === "/cart";
 
   return (

@@ -1,9 +1,41 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 import Link from "next/link";
 import { Mail, Lock, ArrowRight } from "lucide-react";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const { login } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function submit(e) {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const res = await fetch("http://localhost:8000/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      if (!res.ok) throw new Error("Login failed");
+      const data = await res.json();
+      login(data.access_token);
+      // redirect to admin if admin
+      const payload = JSON.parse(atob(data.access_token.split('.')[1]));
+      if (payload.role === 'admin') router.replace('/admin');
+      else router.replace('/');
+    } catch (err) {
+      alert(err.message || 'Login failed');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#f7f9fc] via-[#eef3fb] to-[#e6eef9] px-4">
 
@@ -33,7 +65,7 @@ export default function LoginPage() {
         </p>
 
         {/* FORM */}
-        <form className="mt-6 space-y-4">
+        <form onSubmit={submit} className="mt-6 space-y-4">
           {/* EMAIL / MOBILE */}
           <div className="relative">
             <Mail
@@ -43,6 +75,8 @@ export default function LoginPage() {
             <input
               type="text"
               placeholder="Email or mobile number"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
               className="
                 w-full pl-10 pr-3 py-2.5
@@ -66,6 +100,8 @@ export default function LoginPage() {
             <input
               type="password"
               placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
               className="
                 w-full pl-10 pr-3 py-2.5
@@ -98,6 +134,7 @@ export default function LoginPage() {
           {/* LOGIN BUTTON */}
           <button
             type="submit"
+            disabled={loading}
             className="
               w-full
               py-2.5
@@ -111,7 +148,7 @@ export default function LoginPage() {
               transition
             "
           >
-            Login
+            {loading ? 'Logging in…' : 'Login'}
             <ArrowRight size={16} />
           </button>
         </form>
