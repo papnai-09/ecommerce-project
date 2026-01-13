@@ -1,7 +1,7 @@
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jose import JWTError
-from ..jwt_handler import decode_access_token
+from .jwt_handler import decode_access_token
 from ..database import SessionLocal
 from ..models import User
 
