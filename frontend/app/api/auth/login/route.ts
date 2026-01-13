@@ -1,34 +1,15 @@
-import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcryptjs";
-
-const prisma = new PrismaClient();
-
 export async function POST(req: Request) {
   try {
-    const { email, password } = await req.json();
-
-    // find user
-    const user = await prisma.user.findUnique({ where: { email } });
-
-    if (!user) {
-      return Response.json({ error: "User not found" }, { status: 404 });
-    }
-
-    // verify password
-    const match = await bcrypt.compare(password, user.password);
-    if (!match) {
-      return Response.json({ error: "Incorrect password" }, { status: 400 });
-    }
-
-    return Response.json(
-      { message: "Login successful", user },
-      { status: 200 }
-    );
-
+    const body = await req.json();
+    const backend = process.env.BACKEND_URL || "http://localhost:8000";
+    const res = await fetch(`${backend}/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json();
+    return new Response(JSON.stringify(data), { status: res.status, headers: { "Content-Type": "application/json" } });
   } catch (error) {
-    return Response.json(
-      { error: "Login failed" },
-      { status: 500 }
-    );
+    return new Response(JSON.stringify({ error: "Login failed" }), { status: 500, headers: { "Content-Type": "application/json" } });
   }
 }
