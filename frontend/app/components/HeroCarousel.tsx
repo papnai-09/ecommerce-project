@@ -29,7 +29,7 @@ export default function HeroCarousel() {
       "
     >
       <Slider {...settings}>
-        {["/BAN1.jpg", "/BAN2.jpg", "/BAN3.jpg"].map((img, i) => (
+        {["/ban1.jpg", "/ban2.jpg", "/ban3.jpg"].map((img, i) => (
           <div key={i}>
             <Image
               src={img}
