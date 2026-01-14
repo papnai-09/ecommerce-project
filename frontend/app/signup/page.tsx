@@ -60,7 +60,7 @@ export default function SignupPage() {
       >
         {/* LOGO */}
         <div className="flex justify-center mb-6">
-          <img src="/logo.png" alt="OneVriksh" className="w-28" />
+          <img src="/logo.png" alt="OneVriksh" className="w-24 sm:w-28" />
         </div>
 
         {/* TITLE */}

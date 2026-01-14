@@ -53,7 +53,7 @@ export default function ForgotPasswordPage() {
       >
         {/* LOGO */}
         <div className="flex justify-center mb-5">
-          <img src="/logo.png" alt="OneVriksh" className="w-24" />
+          <img src="/logo.png" alt="OneVriksh" className="w-20 sm:w-24" />
         </div>
 
         {/* TITLE */}

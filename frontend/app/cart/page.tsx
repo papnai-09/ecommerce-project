@@ -86,7 +86,7 @@ export default function CartPage() {
                 <div className="flex gap-4">
 
                   {/* Product Image */}
-                  <div className="relative w-28 h-28 flex-shrink-0">
+                  <div className="relative w-20 h-20 sm:w-28 sm:h-28 flex-shrink-0">
                     <Image
                       src={item.image}
                       alt={item.name}

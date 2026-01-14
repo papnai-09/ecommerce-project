@@ -30,7 +30,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className={`min-h-screen p-4 transition-width duration-200 ${collapsed ? "w-20 sidebar-collapsed" : "w-64"} bg-sidebar text-sidebar-foreground`}>
+    <aside className={`min-h-screen p-4 transition-width duration-200 ${collapsed ? "w-full md:w-20 sidebar-collapsed" : "w-full md:w-64"} bg-sidebar text-sidebar-foreground`}>
       <div className="flex items-center justify-between mb-6">
         <Link href="/admin" className={`text-xl font-bold ${collapsed ? "text-sm" : ""}`}>Admin</Link>
         <button
