@@ -1,0 +1,5 @@
+- [x] Update Next.js version in package.json to ^16.0.4
+- [x] Add baseline-browser-mapping@latest to devDependencies in package.json
+- [x] Run npm install in frontend directory
+- [x] Run npm audit to verify vulnerability fix
+- [ ] Test build with npm run build
