@@ -1,13 +1,13 @@
 "use client";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 
 export default function CategoriesPage() {
   const [cats, setCats] = useState(["Books", "Merch"]);
   const [showAdd, setShowAdd] = useState(false);
 
-  function addCat(e: React.FormEvent<HTMLFormElement>) {
+  function addCat(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const f = new FormData(e.target as HTMLFormElement);
+    const f = new FormData(e.currentTarget as HTMLFormElement);
     const name = f.get("name");
     if (name) setCats((s) => [String(name), ...s]);
     setShowAdd(false);

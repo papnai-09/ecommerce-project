@@ -4,7 +4,7 @@ import { useState } from "react";
 export default function OrderDetail({ params }: { params: { id: string } }) {
   const [order, setOrder] = useState({ id: params.id, user: "alice@example.com", total: 29.98, items: [{ name: "Sample Book", qty: 1 }], status: "processing" });
 
-  function updateStatus(next) {
+  function updateStatus(next: string) {
     setOrder({ ...order, status: next });
     alert("Status updated (placeholder): " + next);
   }

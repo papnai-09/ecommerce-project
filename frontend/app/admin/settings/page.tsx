@@ -1,11 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 
 export default function SettingsPage() {
   const [storeName, setStoreName] = useState("My Store");
   const [currency, setCurrency] = useState("USD");
 
-  function save(e) {
+  function save(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     // placeholder: save to backend later
     alert("Settings saved (placeholder)");

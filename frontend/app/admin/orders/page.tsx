@@ -7,7 +7,7 @@ export default function OrdersPage() {
     { id: 1002, user: "bob@example.com", total: 12.99, status: "shipped" },
   ]);
 
-  function updateStatus(id, next) {
+  function updateStatus(id: number, next: string) {
     setOrders((s) => s.map((o) => (o.id === id ? { ...o, status: next } : o)));
   }
 

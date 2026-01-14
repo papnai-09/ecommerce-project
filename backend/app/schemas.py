@@ -26,7 +26,7 @@ class CategoryOut(BaseModel):
     name: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class ProductCreate(BaseModel):
     name: str
@@ -42,7 +42,7 @@ class ProductOut(BaseModel):
     category: Optional[CategoryOut]
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class OrderOut(BaseModel):
     id: int
@@ -51,7 +51,7 @@ class OrderOut(BaseModel):
     status: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class UserOut(BaseModel):
     id: int
@@ -59,7 +59,7 @@ class UserOut(BaseModel):
     role: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class UpdateUserRole(BaseModel):
     role: str

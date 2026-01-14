@@ -7,7 +7,7 @@ import HeaderCart from "./HeaderCart";
 import Footer from "./Footer";
 import { usePathname } from "next/navigation";
 
-export default function ClientWrapper({ children }) {
+export default function ClientWrapper({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
   const pathname = usePathname();
   if (loading) return null;

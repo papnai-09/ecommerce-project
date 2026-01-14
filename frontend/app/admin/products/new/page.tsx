@@ -1,12 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 
 export default function NewProductPage() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [category, setCategory] = useState("");
 
-  function save(e) {
+  function save(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     // TODO: call backend
     alert("Product created (placeholder): " + name);

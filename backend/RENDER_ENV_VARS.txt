@@ -1,0 +1,27 @@
+# Copy these environment variables to your Render dashboard
+# Go to: Your Service → Environment → Add Environment Variable
+
+DATABASE_URL=postgresql://[user]:[password]@[host].neon.tech/[dbname]?sslmode=require
+# ⚠️ Replace with your actual Neon connection string from Neon dashboard
+
+SECRET_KEY=0I/ylEeRrh1ZWp3lN524lYYc4T/XKdXJ10Qj9ZxYlQI=
+# ✅ Use this generated key (or generate a new one)
+
+FRONTEND_ORIGINS=https://your-frontend.onrender.com,http://localhost:3000
+# ⚠️ Replace "your-frontend.onrender.com" with your actual frontend URL
+
+EMAIL_HOST=smtp.gmail.com
+# ✅ Use smtp.gmail.com for Gmail, or your email provider's SMTP host
+
+EMAIL_PORT=587
+# ✅ Standard port for TLS email
+
+EMAIL_USERNAME=your-email@gmail.com
+# ⚠️ Replace with your actual email address
+
+EMAIL_PASSWORD=your-16-char-app-password
+# ⚠️ For Gmail: Generate App Password at https://myaccount.google.com/apppasswords
+# ⚠️ This is NOT your regular Gmail password
+
+EMAIL_FROM=your-email@gmail.com
+# ⚠️ Replace with your actual email address (usually same as EMAIL_USERNAME)

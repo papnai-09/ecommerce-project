@@ -1,10 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 
 export default function ProductDetail({ params }: { params: { id: string } }) {
   const [product, setProduct] = useState({ id: params.id, name: "Sample Book", price: 9.99, category: "Books", status: "active" });
 
-  function save(e) {
+  function save(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     alert("Saved (placeholder)");
   }

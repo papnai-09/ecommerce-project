@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 
-function ProductRow({ p }) {
+function ProductRow({ p }: { p: { id: number; name: string; price: number; category: string; status: string } }) {
   return (
     <tr className="border-b">
       <td className="px-4 py-2">{p.id}</td>
@@ -25,16 +25,16 @@ export default function ProductsPage() {
     { id: 2, name: "Sample Mug", price: 12.99, category: "Merch", status: "active" },
   ]);
 
-  function handleCreate(e) {
+  function handleCreate(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const f = new FormData(e.target);
+    const f = new FormData(e.currentTarget as HTMLFormElement);
     const newP = {
       id: products.length + 1,
-      name: f.get("name"),
-      price: parseFloat(f.get("price") as string) || 0,
-      category: f.get("category"),
+      name: String(f.get("name") ?? ""),
+      price: parseFloat(String(f.get("price") ?? "0")) || 0,
+      category: String(f.get("category") ?? ""),
       status: "active",
-    } as any;
+    } as { id: number; name: string; price: number; category: string; status: string };
     setProducts([newP, ...products]);
     setShowCreate(false);
   }

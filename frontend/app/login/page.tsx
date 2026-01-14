@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import { useAuth } from "../context/AuthContext";
 import Link from "next/link";
 import { Mail, Lock, ArrowRight } from "lucide-react";
@@ -13,7 +13,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function submit(e) {
+  async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
     try {
@@ -29,8 +29,9 @@ export default function LoginPage() {
       const payload = JSON.parse(atob(data.access_token.split('.')[1]));
       if (payload.role === 'admin') router.replace('/admin');
       else router.replace('/');
-    } catch (err) {
-      alert(err.message || 'Login failed');
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      alert(message || 'Login failed');
     } finally {
       setLoading(false);
     }

@@ -2,12 +2,12 @@
 import { useState } from "react";
 
 export default function UsersPage() {
-  const [users, setUsers] = useState([
+  const [users, setUsers] = useState<{ id: number; email: string; role: "user" | "admin" }[]>([
     { id: 1, email: "alice@example.com", role: "user" },
     { id: 2, email: "bob@example.com", role: "admin" },
   ]);
 
-  function toggleAdmin(id) {
+  function toggleAdmin(id: number) {
     setUsers((s) => s.map((u) => (u.id === id ? { ...u, role: u.role === "admin" ? "user" : "admin" } : u)));
   }
 

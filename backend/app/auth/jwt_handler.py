@@ -1,7 +1,11 @@
+import os
 from jose import jwt, JWTError
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
 
-SECRET_KEY = "your_secret_key"
+load_dotenv()
+
+SECRET_KEY = os.getenv("SECRET_KEY", "your_secret_key_change_in_production")
 ALGORITHM = "HS256"
 
 

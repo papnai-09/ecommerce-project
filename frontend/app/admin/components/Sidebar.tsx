@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Home, Box, ShoppingCart, Users, Tag, Settings } from "lucide-react";
+import { Home, Box, ShoppingCart, Users, Tag, Settings, type LucideProps } from "lucide-react";
+import type { ComponentType } from "react";
 import styles from "../admin.module.css";
 
-const ICONS = {
+const ICONS: Record<string, ComponentType<LucideProps>> = {
   Dashboard: Home,
   Products: Box,
   Orders: ShoppingCart,

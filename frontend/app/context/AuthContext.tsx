@@ -2,23 +2,7 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 
-interface AuthContextType {
-  user: { email: string; role: string } | null;
-  token: string | null;
-  loading: boolean;
-  login: (token: string) => void;
-  logout: () => void;
-}
-
-const AuthContext = createContext<AuthContextType | null>(null);
-
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
+const AuthContext = createContext<any>(null);
 
 function decodeJwt(token: string) {
   try {
@@ -33,7 +17,7 @@ function decodeJwt(token: string) {
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<{ email: string; role: string } | null>(null);
   const [token, setToken] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const t = localStorage.getItem('token');
@@ -68,3 +52,5 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     </AuthContext.Provider>
   );
 }
+
+export const useAuth = () => useContext(AuthContext);
